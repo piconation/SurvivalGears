@@ -19,7 +19,6 @@ angular.module('starter', ['ionic', 'firebase'])
         StatusBar.styleDefault();
       }
     });
-    myAppRun();
   })
 
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -76,16 +75,6 @@ angular.module('starter', ['ionic', 'firebase'])
    $urlRouterProvider.otherwise('/login');
 });
 
-function myAppRun() {
-    var config = {
-        apiKey: "AIzaSyD8yymwpm2Vdn3-iZ_xhDqSpyuqzlKNTSo",
-        authDomain: "matc-gp.firebaseapp.com",
-        databaseURL: "https://matc-gp.firebaseio.com",
-        storageBucket: "matc-gp.appspot.com"
-    };
-    firebase.initializeApp(config);
-}
-
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 
@@ -95,7 +84,7 @@ var url = 'mongodb://localhost:27017/myproject';
 // Use connect method to connect to the server
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
-  console.log("Connected successfully to server");
+  console.log("Connected successfully to the server");
 
   db.close();
 });
