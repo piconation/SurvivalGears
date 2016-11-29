@@ -1,0 +1,19 @@
+{
+  "name": "survival_gears",
+  "version": "1.0.0",
+  "description": "A school project and game",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iwatts/SurvivalGears.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iwatts/SurvivalGears/issues"
+  },
+  "homepage": "https://github.com/iwatts/SurvivalGears#readme"
+}
