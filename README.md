@@ -1,11 +1,4 @@
-# SurvivalGears
+# matc-gp
 
-A school project and game
-
-Players will attempt to thrive in an apocolyptic landscape. They will:
-
-- Recruit followers
-- Complete Quests
-- Gain Fame
-
-***
+Game app Developed by Matt Powell, Grant Boothe and Isaac Watts
+random note
