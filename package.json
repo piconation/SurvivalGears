@@ -2,6 +2,9 @@
   "name": "matc-gp",
   "version": "1.1.1",
   "description": "matc-gp: An Ionic project",
+  "engines": {
+    "node": "6.8.0"
+  },
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
