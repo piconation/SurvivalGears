@@ -1,14 +1,22 @@
 /**
  * Created by mattpowell on 12/2/16.
  */
-var passport = require('passport');
+
 var OAuthStrategy = require('passport-oauth').OAuthStrategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
-var express = require('express'),
+var express = require('express');
+var passport = require('passport');
     app = express();
 
-app.use(express.static('www'));
+// app.use(express.static('www'));
+// app.use(express.static('public'));
+// app.use(express.cookieParser());
+// app.use(express.bodyParser());
+// app.use(express.session({ secret: 'keyboard cat' }));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(app.router);
 
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
 app.all('*', function(req, res, next) {
@@ -29,16 +37,6 @@ app.listen(app.get('port'), function () {
 app.post('/login',
     passport.authenticate('local', {successRedirect: '/app/homebase',
         failureRedirect: '/login'}));
-
-app.configure(function() {
-    app.use(express.static('public'));
-    app.use(express.cookieParser());
-    app.use(express.bodyParser());
-    app.use(express.session({ secret: 'keyboard cat' }));
-    app.use(passport.initialize());
-    app.use(passport.session());
-    app.use(app.router);
-});
 
 passport.use('provider', new OAuthStrategy({
         requestTokenURL: 'https://www.provider.com/oauth/request_token',
@@ -61,7 +59,7 @@ app.get('/auth/provider/callback',
 
 passport.use(new FacebookStrategy({
         clientID: 1760337584239123,
-        clientSecret: f1833e6c4fd2f4a4b0f0add1857c7280,
+        clientSecret: 'f1833e6c4fd2f4a4b0f0add1857c7280',
         callbackURL: "https://matc-gp.com/__/auth/handler"
     },
     function(accessToken, refreshToken, profile, done) {
@@ -79,9 +77,9 @@ app.get('/auth/facebook/callback',
         failureRedirect: '/login' }));
 
 passport.use(new GoogleStrategy({
-        clientID: 1049868233251-oj6cqu5142p0spc3ms3bo1ghqbsuip0n.apps.googleusercontent.com,
-        clientSecret: M_PWpSPXorT587FH-VJ9sHMp,
-        callbackURL: "http://www.example.com/auth/google/callback"
+        clientID: 1049868233251,
+        clientSecret: 'M_PWpSPXorT587FH-VJ9sHMp',
+        callbackURL: "https://accounts.google.com/o/oauth2/auth"
     },
     function(accessToken, refreshToken, profile, done) {
         User.findOrCreate({ googleId: profile.id }, function (err, user) {
