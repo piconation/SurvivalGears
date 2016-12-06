@@ -1,6 +1,10 @@
 /**
  * Created by mattpowell on 12/2/16.
  */
+var passport = require('passport');
+var OAuthStrategy = require('passport-oauth').OAuthStrategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 var express = require('express'),
     app = express();
 
@@ -21,3 +25,76 @@ app.set('port', process.env.PORT || 5000);
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+app.post('/login',
+    passport.authenticate('local', {successRedirect: '/app/homebase',
+        failureRedirect: '/login'}));
+
+app.configure(function() {
+    app.use(express.static('public'));
+    app.use(express.cookieParser());
+    app.use(express.bodyParser());
+    app.use(express.session({ secret: 'keyboard cat' }));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(app.router);
+});
+
+passport.use('provider', new OAuthStrategy({
+        requestTokenURL: 'https://www.provider.com/oauth/request_token',
+        accessTokenURL: 'https://www.provider.com/oauth/access_token',
+        userAuthorizationURL: 'https://www.provider.com/oauth/authorize',
+        consumerKey: '123-456-789',
+        consumerSecret: 'shhh-its-a-secret'
+        callbackURL: 'https://www.example.com/auth/provider/callback'
+    },
+    function(token, tokenSecret, profile, done) {
+        User.findOrCreate('Insert user name here', function(err, user) {
+            done(err, user);
+        });
+    }
+));
+
+app.get('/auth/provider/callback',
+    passport.authenticate('provider', { successRedirect: '/',
+        failureRedirect: '/login' }));
+
+passport.use(new FacebookStrategy({
+        clientID: 1760337584239123,
+        clientSecret: f1833e6c4fd2f4a4b0f0add1857c7280,
+        callbackURL: "https://matc-gp.com/__/auth/handler"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        User.findOrCreate('Insert user name here', function(err, user) {
+            if (err) { return done(err); }
+            done(null, user);
+        });
+    }
+));
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { successRedirect: '/',
+        failureRedirect: '/login' }));
+
+passport.use(new GoogleStrategy({
+        clientID: 1049868233251-oj6cqu5142p0spc3ms3bo1ghqbsuip0n.apps.googleusercontent.com,
+        clientSecret: M_PWpSPXorT587FH-VJ9sHMp,
+        callbackURL: "http://www.example.com/auth/google/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+            return done(err, user);
+        });
+    }
+));
+
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function(req, res) {
+        res.redirect('/');
+    });
