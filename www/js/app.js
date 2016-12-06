@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'firebase'])
+angular.module('starter', ['ionic'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -12,14 +12,12 @@ angular.module('starter', ['ionic', 'firebase'])
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
-
       }
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
     });
-    myAppRun();
   })
 
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -62,26 +60,30 @@ angular.module('starter', ['ionic', 'firebase'])
        }
     })
 
-    .state('app.inventory', {
-      url: "/inventory",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/inventory.html",
-          controller: 'invController',
-          controllerAs: 'fl'
+      .state('app.inventory', {
+        url: "/inventory",
+        views: {
+          'menuContent': {
+            templateUrl: "templates/inventory.html",
+            controller: 'invController',
+            controllerAs: 'fl'
+          }
         }
-      }
-    });
+      });
 
    $urlRouterProvider.otherwise('/login');
 });
 
-function myAppRun() {
-    var config = {
-        apiKey: "AIzaSyD8yymwpm2Vdn3-iZ_xhDqSpyuqzlKNTSo",
-        authDomain: "matc-gp.firebaseapp.com",
-        databaseURL: "https://matc-gp.firebaseio.com",
-        storageBucket: "matc-gp.appspot.com"
-    };
-    firebase.initializeApp(config);
-}
+// var MongoClient = require('mongodb').MongoClient
+//     , assert = require('assert');
+//
+// // Connection URL
+// var url = 'mongodb://localhost:27017/myproject';
+//
+// // Use connect method to connect to the server
+// MongoClient.connect(url, function(err, db) {
+//     assert.equal(null, err);
+//     console.log("Connected successfully to server");
+//
+//     db.close();
+// });

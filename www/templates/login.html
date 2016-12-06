@@ -17,13 +17,13 @@
           </div> -->
 
         <content>
-          <button ng-if="!vm.displayName" class="button button-positive" id="fb" ng-click="vm.login('facebook')" disabled>Log in with
+          <button xng-if="!vm.displayName" class="button button-positive" id="fb" ng-click="vm.login('facebook')">Log in with
             <span class="ion-social-facebook"></span>
           </button><br><br>
-          <button ng-if="!vm.displayName" class="button button-assertive" id="google" ng-click="vm.login('google')">Log in
+          <button xng-if="!vm.displayName" class="button button-assertive" id="google" ng-click="vm.login('google')">Log in
             with <span class="ion-social-google"></span>
           </button><br><br>
-          <button ng-if="!vm.displayName" class="button button-balanced" id="mailbutton" ng-click="vm.showEmailLogin()">Log in
+          <button xng-if="!vm.displayName" class="button button-balanced" id="mailbutton" ng-click="vm.showEmailLogin()">Log in
             with <span class="ion-email"></span>
           </button><br><br>
           <div ng-if="vm.displayName" class="mask">
@@ -35,10 +35,10 @@
 
         <content ng-show="vm.showLogin">
           <div>
-            <input placeholder="Enter Email Address" type="email" id="mail" ng-model="vm.email" required>
+            <input placeholder=" Enter Email Address" type="email" id="mail" ng-model="vm.email" required>
           </div><br>
           <div>
-            <input placeholder="Enter Password" type="password" id="password" ng-model="vm.password" required
+            <input placeholder=" Enter Password" type="password" id="password" ng-model="vm.password" required
                    ng-keypress="($event.which === 13) ? vm.loginWithEmail(): 0">
           </div><br>
           <div>
