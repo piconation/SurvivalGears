@@ -61,16 +61,16 @@ angular.module('starter', ['ionic'])
        }
     })
 
-    .state('app.inventory', {
-      url: "/inventory",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/inventory.html",
-          controller: 'invController',
-          controllerAs: 'fl'
+      .state('app.inventory', {
+        url: "/inventory",
+        views: {
+          'menuContent': {
+            templateUrl: "templates/inventory.html",
+            controller: 'invController',
+            controllerAs: 'fl'
+          }
         }
-      }
-    });
+      });
 
    $urlRouterProvider.otherwise('/login');
 });
