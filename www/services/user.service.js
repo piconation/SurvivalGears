@@ -3,7 +3,7 @@
   angular.module('starter')
     .service('User', User);
 
-  function User($firebaseAuth, $firebaseObject, $firebaseArray, $log, $q) {
+  function User($log, $q) {
 
     // User properties
     var self = this;
@@ -29,10 +29,14 @@
 
     // login with third-party provider
     function login(provider) {
-      var auth = $firebaseAuth();
-      return auth.$signInWithPopup(provider)
-        .then(loginSuccess)
-        .catch(loginError);
+      passport.authenticate(provider),
+          function (reg, res) {
+            return req.user
+          };
+      // var auth = $firebaseAuth();
+      // return auth.$signInWithPopup(provider)
+      //   .then(loginSuccess)
+      //   .catch(loginError);
     }
 
     function loginWithEmail(email, password) {
