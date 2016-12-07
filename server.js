@@ -8,6 +8,19 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var express = require('express');
 var passport = require('passport');
     app = express();
+var pg = require('pg');
+
+app.get('/db', function (request, response) {
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        client.query('SELECT * FROM test_table', function(err, result) {
+            done();
+            if (err)
+            { console.error(err); response.send("Error " + err); }
+            else
+            { response.render('pages/db', {results: result.rows} ); }
+        });
+    });
+});
 
 // app.use(express.static('www'));
 // app.use(express.static('public'));
@@ -44,7 +57,7 @@ passport.use('provider', new OAuthStrategy({
         userAuthorizationURL: 'https://www.provider.com/oauth/authorize',
         consumerKey: '123-456-789',
         consumerSecret: 'shhh-its-a-secret',
-        callbackURL: 'https://www.example.com/auth/provider/callback'
+        callbackURL: 'postgres://kqzioadrsfandc:7gwnpWCSQgN-YszAAkB-ng_o6y@ec2-54-243-185-123.compute-1.amazonaws.com:5432/d5os6nia3gfi0a'
     },
     function(token, tokenSecret, profile, done) {
         User.findOrCreate('Insert user name here', function(err, user) {
@@ -60,7 +73,7 @@ app.get('/auth/provider/callback',
 passport.use(new FacebookStrategy({
         clientID: 1760337584239123,
         clientSecret: 'f1833e6c4fd2f4a4b0f0add1857c7280',
-        callbackURL: "https://matc-gp.com/__/auth/handler"
+        callbackURL: "postgres://kqzioadrsfandc:7gwnpWCSQgN-YszAAkB-ng_o6y@ec2-54-243-185-123.compute-1.amazonaws.com:5432/d5os6nia3gfi0a"
     },
     function(accessToken, refreshToken, profile, done) {
         User.findOrCreate('Insert user name here', function(err, user) {
