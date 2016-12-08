@@ -1,3 +1,21 @@
+.sidenav{
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+}
+
+.sidenav a {
+  height: 100%;
+
+}
+
 ion-content {
   background-image: url(../survivor1.jpg);
   background-size: cover;
@@ -130,12 +148,12 @@ button.right {
   border-radius: 10px;
 }
 
-#loginHead {
+#login {
   font-size: 35px;
   color: white;
   font-weight: 700;
   text-align: center;
-  margin-top: 35px;
+  margin-top: -290px;
 }
 
 
@@ -150,7 +168,7 @@ button.right {
 }
 
 .scroll{
-  padding: 0px 15px;
+  padding: 320px 15px;
   background-color: rgba(0, 0, 0, 0.5);
   background-size: 100%;
   color: white;
