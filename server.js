@@ -9,27 +9,35 @@ var express = require('express');
 var passport = require('passport');
     app = express();
 var pg = require('pg');
+var LocalStrategy = require('passport-local').Strategy;
 
-app.get('/db', function (request, response) {
+app.use(express.static('www'));
+// app.use(express.static('public'));
+// app.use(express.cookieParser());
+// app.use(express.bodyParser());
+// app.use(express.session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+// app.use(app.router); *** DEPRECATED, DO NOT USE ***
+
+app.get('/www', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         client.query('SELECT * FROM test_table', function(err, result) {
             done();
             if (err)
             { console.error(err); response.send("Error " + err); }
             else
-            { response.render('pages/db', {results: result.rows} ); }
+            { response.render('index.html', {results: result.rows} ); }
         });
     });
 });
 
-// app.use(express.static('www'));
-// app.use(express.static('public'));
-// app.use(express.cookieParser());
-// app.use(express.bodyParser());
-// app.use(express.session({ secret: 'keyboard cat' }));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(app.router);
+// app.get('/', function (request, response) {
+//     var hostUrl = request.protocol + '://' + request.get('host');
+//     response.redirect(hostUrl + "/www/index.html");
+// });
+
+
 
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
 app.all('*', function(req, res, next) {
@@ -50,6 +58,34 @@ app.listen(app.get('port'), function () {
 app.post('/login',
     passport.authenticate('local', {successRedirect: '/app/homebase',
         failureRedirect: '/login'}));
+
+var localOptions = {
+    usernameField: 'email'
+};
+
+var localLogin = new LocalStrategy(localOptions, function(email, password, done){
+    User.findOne({
+        email: email
+    }, function(err, user){
+        if(err){
+            return done(err);
+        }
+        if(!user){
+            return done(null, false, {error: 'Login failed. Please try again.'});
+        }
+        user.comparePassword(password, function(err, isMatch){
+            if(err){
+                return done(err);
+            }
+            if(!isMatch){
+                return done(null, false, {error: 'Login failed. Please try again.'});
+            }
+            return done(null, user);
+        });
+    });
+});
+
+passport.use(localLogin);
 
 passport.use('provider', new OAuthStrategy({
         requestTokenURL: 'https://www.provider.com/oauth/request_token',
