@@ -34,16 +34,18 @@
         </content>
 
         <content ng-show="vm.showLogin">
-          <div>
-            <input placeholder=" Enter Email Address" type="email" id="mail" ng-model="vm.email" required>
-          </div><br>
-          <div>
-            <input placeholder=" Enter Password" type="password" id="password" ng-model="vm.password" required
+          <form method="post" action="/login">
+            <div>
+              <input placeholder=" Enter Email Address" type="email" id="mail" ng-model="vm.email" required>
+            </div><br>
+            <div>
+              <input placeholder=" Enter Password" type="password" id="password" ng-model="vm.password" required
                    ng-keypress="($event.which === 13) ? vm.loginWithEmail(): 0">
-          </div><br>
-          <div>
-            <button id="maillogin" class="button button-balanced" ng-click="vm.loginWithEmail()">Log in</button>
-          </div>
+            </div><br>
+            <div>
+              <input type="submit" id="maillogin" class="button button-balanced" xng-click="vm.loginWithEmail()" value="Login">
+            </div>
+          </form>
         </content>
       </div>
   </ion-content>

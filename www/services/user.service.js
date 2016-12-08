@@ -40,7 +40,8 @@
     }
 
     function loginWithEmail(email, password) {
-      var auth = $firebaseAuth();
+      passport.use(localLogin);
+      /*var auth = $firebaseAuth();
       return auth.$createUserWithEmailAndPassword(email, password)
         .then(function () {
           auth.$signInWithEmailAndPassword(email, password)
@@ -57,7 +58,7 @@
             $log.error(error);
           }
         })
-        .catch(loginError);
+        .catch(loginError);*/
     }
 
     function logout() {

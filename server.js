@@ -55,10 +55,6 @@ app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-app.post('/login',
-    passport.authenticate('local', {successRedirect: '/app/homebase',
-        failureRedirect: '/login'}));
-
 var localOptions = {
     usernameField: 'email'
 };
@@ -145,3 +141,7 @@ app.get('/auth/google/callback',
     function(req, res) {
         res.redirect('/');
     });
+
+app.post('/login',
+    passport.authenticate('localLogin', {successRedirect: '/app/homebase',
+        failureRedirect: '/login'}));
