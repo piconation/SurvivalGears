@@ -3,7 +3,7 @@
   <ion-content>
     <header id="loginHead">Survival Gears</header>
       <div class="xmenu">
-          <div ng-app="starter" ng-show="vm.displayName">
+          <!--<div ng-app="starter" ng-show="vm.displayName">
             <button class="button button-block" ng-click="vm.gameStart()">Start Game</button>
           </div>
           <div ng-app="starter" ng-show="vm.displayName">
@@ -11,19 +11,19 @@
           </div>
           <div ng-app="starter" ng-show="vm.displayName">
             <button class="button button-block" disabled>Settings</button>
-          </div>
+          </div>-->
           <!-- <div ng-app="starter" ng-show="vm.displayName">
             <button class="button button-block" ng-click="vm.getLoot()">Loot Test</button>
           </div> -->
 
-        <content>
-          <button xng-if="!vm.displayName" class="button button-positive" id="fb" ng-click="vm.login('facebook')">Log in with
+        <content><br><br>
+          <button !ng-if="!vm.displayName" class="button button-positive" id="fb" ng-click="vm.login('facebook')">Log in with
             <span class="ion-social-facebook"></span>
           </button><br><br>
-          <button xng-if="!vm.displayName" class="button button-assertive" id="google" ng-click="vm.login('google')">Log in
+          <button !ng-if="!vm.displayName" class="button button-assertive" id="google" ng-click="vm.login('google')">Log in
             with <span class="ion-social-google"></span>
           </button><br><br>
-          <button xng-if="!vm.displayName" class="button button-balanced" id="mailbutton" ng-click="vm.showEmailLogin()">Log in
+          <button !ng-if="!vm.displayName" class="button button-balanced" id="mailbutton" ng-click="vm.showEmailLogin()">Log in
             with <span class="ion-email"></span>
           </button><br><br>
           <div ng-if="vm.displayName" class="mask">
