@@ -1,6 +1,6 @@
  (function() {
   angular.module('starter')
-    .controller('loginController', ['$http', 'User'], loginController);
+    .controller('loginController', loginController);
 
   function loginController(User, Game, Looting, $state, $ionicPopup, $http) {
     // component properties
