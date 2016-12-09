@@ -1,8 +1,8 @@
  (function() {
   angular.module('starter')
-    .controller('loginController', loginController);
+    .controller('loginController', ['$http', 'User'], loginController);
 
-  function loginController(User, Game, Looting, $state, $ionicPopup) {
+  function loginController(User, Game, Looting, $state, $ionicPopup, $http) {
     // component properties
     var vm = this;
     vm.showLogin = false;
@@ -28,6 +28,8 @@
       vm.showLogin = !vm.showLogin;
     }
 
+
+
     function login(provider) {
       vm.errorMessage = undefined;
       if (provider === 'facebook') {
@@ -40,7 +42,7 @@
     }
 
     function loginWithEmail() {
-      vm.errorMessage = undefined;
+      /*vm.errorMessage = undefined;
       User.loginWithEmail(vm.email, vm.password)
         .then(function () {
           if (User.displayName) {
@@ -52,7 +54,24 @@
           }
         }, function (error) {
           vm.errorMessage = error.message;
-        });
+        });*/
+      var config = {};
+      $http(config)
+          .success(function(data, status, headers, config) {
+            if (data.status) {
+              // successful login
+              User.isLogged = true;
+              User.username = data.username;
+            }
+            else {
+              User.isLogged = false;
+              User.username = '';
+            }
+          })
+          .error(function(data, status, headers, config) {
+            User.isLogged = false;
+            User.username = '';
+          });
     }
 
     function logout() {

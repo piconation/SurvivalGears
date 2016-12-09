@@ -142,4 +142,12 @@
     }
   }
 
+  function userService() {
+    var sdo = {
+      isLogged: false,
+      username: ''
+    };
+    return sdo;
+  }
+
 })();
